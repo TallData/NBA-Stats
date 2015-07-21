@@ -97,25 +97,14 @@ a <- merge(player_hist, player_key,by.x = "playerID", by.y = "bioID")
 b <- left_join(a, team_hist,by= c("tmID"="tmID","year"="year"))
 d <- filter(b, year == yr)
 
-teams <- distinct(select(c, tmID))
+teams <- distinct(select(d, tmID))
 
-mysummary <- function(x,npar=TRUE,print=TRUE) {
-  if (!npar) {
-    center <- mean(x); spread <- sd(x) 
-  } else {
-    center <- median(x); spread <- mad(x) 
-  }
-  if (print & !npar) {
-    cat("Mean=", center, "\n", "SD=", spread, "\n")
-  } else if (print & npar) {
-    cat("Median=", center, "\n", "MAD=", spread, "\n")
-  }
-  result <- list(center=center,spread=spread)
-  return(result)
-}
-
-attach(c)
-c$fac <- (2/3) * (0.5 * (log(assists)/log(fgMade)) / (2 * log(fgMade)/log(ftMade)))
-
+attach(d)
+d$fac <- (2/3) * (0.50 * (log(assists)/log(fgMade)) / (2 * log(fgMade)/log(ftMade)))
+d$vop <- log(points) / (log(fgAttempted)+log(oRebounds)+log(turnovers)+log(ftAttempted)*0.44)
+d$drbp <- (log(rebounds) - log(oRebounds)) / log(rebounds) * 1.00
 ls()
-detach(c)
+detach(d)
+
+summary(d)
+d
