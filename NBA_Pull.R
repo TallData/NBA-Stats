@@ -1,7 +1,7 @@
 ################
 #####NBA Look
-####Packages###
-#install.packages("xlsx")
+####Packahist3_2008es###
+#install.packahist3_2008es("xlsx")
 #library(xlsx)
 ###############
 
@@ -9,16 +9,20 @@
 rm(list=ls())
 #list=ls()
 
-# Load required packages 
+# Load required packahist3_2008es 
 library(RCurl)
 library(dplyr)
+library(ggplot2)
+library(gridExtra)
+#library(tidyr)
+
 
 #player_key
 ###########
 # Create an object for the URL where your data is stored.
 url <- "https://raw.githubusercontent.com/DataWizKid/NBA-Stats/master/basketball_master.csv"
 
-# Use getURL from RCurl to download the file.
+# Use hist3_2008etURL from RCurl to download the file.
 myData <- getURL(url, ssl.verifypeer = FALSE)
 
 # Finally let R know that the file is in .csv format so that it can create a data frame.
@@ -30,7 +34,7 @@ player_key <- read.csv(textConnection(myData), header=TRUE,
 # Create an object for the URL where your data is stored.
 url <- "https://raw.githubusercontent.com/DataWizKid/NBA-Stats/master/basketball_players.csv"
 
-# Use getURL from RCurl to download the file.
+# Use hist3_2008etURL from RCurl to download the file.
 myData <- getURL(url, ssl.verifypeer = FALSE)
 
 # Finally let R know that the file is in .csv format so that it can create a data frame.
@@ -42,7 +46,7 @@ player_hist <- read.csv(textConnection(myData), header=TRUE,
 # Create an object for the URL where your data is stored.
 url <- "https://raw.githubusercontent.com/DataWizKid/NBA-Stats/master/basketball_hof.csv"
 
-# Use getURL from RCurl to download the file.
+# Use hist3_2008etURL from RCurl to download the file.
 myData <- getURL(url, ssl.verifypeer = FALSE)
 
 # Finally let R know that the file is in .csv format so that it can create a data frame.
@@ -54,7 +58,7 @@ player_hof <- read.csv(textConnection(myData), header=TRUE,
 # Create an object for the URL where your data is stored.
 url <- "https://raw.githubusercontent.com/DataWizKid/NBA-Stats/master/basketball_teams.csv"
 
-# Use getURL from RCurl to download the file.
+# Use hist3_2008etURL from RCurl to download the file.
 myData <- getURL(url, ssl.verifypeer = FALSE)
 
 # Finally let R know that the file is in .csv format so that it can create a data frame.
@@ -67,7 +71,7 @@ team_hist <- read.csv(textConnection(myData), header=TRUE,
 # Create an object for the URL where your data is stored.
 url <- "https://raw.githubusercontent.com/DataWizKid/NBA-Stats/master/basketball_series_post.csv"
 
-# Use getURL from RCurl to download the file.
+# Use hist3_2008etURL from RCurl to download the file.
 myData <- getURL(url, ssl.verifypeer = FALSE)
 
 # Finally let R know that the file is in .csv format so that it can create a data frame.
@@ -79,7 +83,7 @@ team_playoffs <- read.csv(textConnection(myData), header=TRUE,
 # Create an object for the URL where your data is stored.
 url <- "https://raw.githubusercontent.com/DataWizKid/NBA-Stats/master/basketball_abbrev.csv"
 
-# Use getURL from RCurl to download the file.
+# Use hist3_2008etURL from RCurl to download the file.
 myData <- getURL(url, ssl.verifypeer = FALSE)
 
 # Finally let R know that the file is in .csv format so that it can create a data frame.
@@ -90,7 +94,7 @@ nba_abbrv <- read.csv(textConnection(myData), header=TRUE,
 # Create an object for the URL where your data is stored.
 url <- "https://raw.githubusercontent.com/DataWizKid/NBA-Stats/master/basketball_awards_players.csv"
 
-# Use getURL from RCurl to download the file.
+# Use hist3_2008etURL from RCurl to download the file.
 myData <- getURL(url, ssl.verifypeer = FALSE)
 
 # Finally let R know that the file is in .csv format so that it can create a data frame.
@@ -102,7 +106,7 @@ player_awards <- read.csv(textConnection(myData), header=TRUE,
 # Create an object for the URL where your data is stored.
 url <- "https://raw.githubusercontent.com/DataWizKid/NBA-Stats/master/basketball_player_allstar.csv"
 
-# Use getURL from RCurl to download the file.
+# Use hist3_2008etURL from RCurl to download the file.
 myData <- getURL(url, ssl.verifypeer = FALSE)
 
 # Finally let R know that the file is in .csv format so that it can create a data frame.
@@ -117,51 +121,148 @@ y <- c("playerID","year","GP","tmID",
 
 yr <- 2008
 
-a <- merge(player_hist, player_key,by.x = "playerID", by.y = "bioID")
-b <- left_join(a, team_hist,by= c("tmID"="tmID","year"="year"))
-d <- filter(b, year == yr)
+summary(team_hist)
+hist_key <- merge(player_hist, player_key,by.x = "playerID", by.y = "bioID")
+hist_team_key <- left_join(hist_key, team_hist,by= c("tmID"="tmID","year"="year"))
 
-<<<<<<< HEAD
+target <- c("EC", "WC")
+hist_2008 <- filter(hist_team_key, year == yr, confID %in% target )
 
-e <- filter(player_allstar, season_id == yr)
-f <- select(e, player_id, games_played)
-f <- rename(f,allstar=games_played)
-f <- rename(f,playerID=player_id)
-g <-  inner_join(d,f)
+alstr_2008 <- filter(player_allstar, season_id == yr)
+alstr_key <- select(alstr_2008, player_id, games_played)
+alstr_key <- rename(alstr_key,allstar=games_played)
+alstr_key <- rename(alstr_key,playerID=player_id)
+hist2_2008 <-  left_join(hist_2008,alstr_key, by= c("playerID"="playerID"))
+hist2_2008$allstar[is.na(hist2_2008$allstar)] <- 0
+hist3_2008 <- subset(hist2_2008,GP>0) 
 
-g$allstar
+par(mfrow=c(2,2))
+c1 <- ggplot(data = hist3_2008, aes(x=points, colour = confID))
+#c1 <- ggplot(data = hist3_2008, aes(x=points, colour = confID))
+c1 + geom_density()
+c1 + geom_bar()
+c2 <- ggplot(data = hist3_2008, aes(x=points, fill = confID))
+c2 + geom_density(position = "fill")
 
-teams <- distinct(select(d, tmID))
+c3 <- ggplot(hist3_2008, aes(sample=points, colour = confID))
+c3 + stat_qq(distribution=qnorm) + 
+  geom_abline(data=intsl, aes(intercept=int, slope=slope)) +
+  facet_wrap(~confID,nrow=1) + ylab("Point Q-Q Plot") 
 
-attach(g)
+grid.arrange(c1 + geom_density(), c1 + geom_bar(position="dodge"), nrow=2, ncol=1)
+
+c4 <- ggplot(data = hist3_2008, aes(y=points, x= turnovers, colour = confID))
+
+lm1 <- lm(hist3_2008 ,formula = points ~ turnovers)
+
+c4 + geom_point() 
+
+look1 <- filter(hist3_2008, is.na(confID) == TRUE)
+look2 <- filter(player_key, bioID == "ajincal01")
+
+# hist(hist3_2008$GP)
+# shapiro.test(hist3_2008$GP)
+# boxplot(GP~confID,data=hist3_2008, main="Car Milage Data", 
+#         xlab="Number of Cylinders", ylab="Miles Per Gallon")
+# 
+ hist3_2008$rownumber = 1:dim(hist3_2008)[1]
+# 
+par(mfrow=c(2,2))
+qqnorm(hist3_2008$GP)
+qqline(hist3_2008$GP)
+hist(hist3_2008$GP)
+
+mn <-  mean(hist3_2008$GP)
+md <-  median(hist3_2008$GP)
+stdv <- sd(hist3_2008$GP)
+
+hist3_2008$X <- ((hist3_2008$GP-mn)) / stdv
+
+#hist3_2008 <- hist3_2008[sample(1:nrow(hist3_2008)), ]
+
+calc1 <-  ((md-mn)) / stdv
+plot(hist3_2008$rownum, hist3_2008$X)
+
+
+abline(h=calc1, lty = 2)
+# 
+hist(hist3_2008[,6])
+
+teams <- distinct(select(hist3_2008, tmID))
+
+attach(hist3_2008)
 #pct of team calculations
-g$pt_pct <- points / o_pts
-g$pt_fgm <- fgMade / o_fgm
-g$pt_fga <- fgAttempted / o_fga
-g$pt_ast <- assists / o_asts
-g$pt_to <- turnovers / o_to
-g$pts_per48 <- points / minutes * 48
+hist3_2008$pts_gm <- points / GP
+hist3_2008$fgm_gm <- fgMade / GP
+hist3_2008$fga_gm <- fgAttempted / GP
+hist3_2008$ftm_gm <- ftMade / GP
+hist3_2008$fta_gm <- ftAttempted / GP
+hist3_2008$ast_gm <- assists / GP
+hist3_2008$to_gm <- turnovers / GP
+hist3_2008$reb_gm <- rebounds / GP
+hist3_2008$oreb_gm <- oRebounds / GP
+hist3_2008$min_gm <- minutes / GP
 
+#pct of team calculations
+hist3_2008$pct_pt <- points / o_pts
+hist3_2008$pct_fga <- fgAttempted / o_fga
+hist3_2008$pct_ast <- assists / o_asts
+hist3_2008$pct_to <- turnovers / o_to
+hist3_2008$pct_pp48 <- points / minutes * 48
+
+#player effeciency
+hist3_2008$ast_perto <- assists / turnovers
+hist3_2008$pts_perfga <- points / fgAttempted
 
 #PER calculation components
-g$fac <- (2/3) * (0.50 * (log(assists)/log(fgMade)) / (2 * log(fgMade)/log(ftMade)))
-g$vop <- log(points) / (log(fgAttempted)+log(oRebounds)+log(turnovers)+log(ftAttempted)*0.44)
-g$drbp <- (log(rebounds) - log(oRebounds)) / log(rebounds) * 1.00
+hist3_2008$fac <- (2/3) * (0.50 * (log(assists)/log(fgMade)) / (2 * log(fgMade)/log(ftMade)))
+hist3_2008$vop <- log(points) / (log(oRebounds)+log(turnovers)+log(fgAttempted)*1.44)
+hist3_2008$drbp <- (log(rebounds) - log(oRebounds)) / log(rebounds) * 1.00
+
 ls()
-detach(g)
+detach(hist3_2008)
 
-summary(g)
-g
-=======
-teams <- distinct(select(d, tmID))
+head(arrange(hist3_2008,desc(vop)), n = 10)
 
-attach(d)
-d$fac <- (2/3) * (0.50 * (log(assists)/log(fgMade)) / (2 * log(fgMade)/log(ftMade)))
-d$vop <- log(points) / (log(fgAttempted)+log(oRebounds)+log(turnovers)+log(ftAttempted)*0.44)
-d$drbp <- (log(rebounds) - log(oRebounds)) / log(rebounds) * 1.00
-ls()
-detach(d)
+# select variables v1, v2, v3
+myvars <- c("pts_gm","fga_gm","ftm_gm","fta_gm","ast_gm","to_gm","reb_gm","oreb_gm", "pct_pt")
+            
+h <- hist3_2008[myvars]
 
-summary(d)
-d
->>>>>>> b11515f154949ab1e1004ffc9304a1f0ef2921a3
+??colnames
+numsvars1 <- sapply(hist3_2008, is.numeric)
+class(numsvars1)
+numvars.df <- data.frame(numsvars1)
+colnames(numvars.df) <- c("columns","flag")
+h2 <- log(h)
+cor1 <- cor(h)
+cov1 <- cov(h)
+pairs(h)
+pairs(h2)
+
+
+?select
+
+#principal component analysis
+prc_1 <- prcomp(~pts_gm+fgm_gm+fga_gm+ftm_gm+fta_gm+ast_gm+to_gm+reb_gm+oreb_gm, data = hist3_2008 )
+summary(prc_1)
+print(prc_1)
+plot(prc_1)
+predict(prc_1)
+
+summary(hist3_2008$allstar)# display results
+class(hist3_2008$allstar)# display results
+
+#hist3_2008$fac
+#hist3_2008$drbp
+
+train = sample(hist3_2008, size = round(0.7*n), replace=FALSE)
+hist3.train = mtcars[train,]
+hist3.test = mtcars[-train,]
+
+fit <- glm(allstar~pt_to+pt_ast+pt_pct+pt_fga+pts_per48#+vop+fac+drbp
+          ,data = hist3_2008, family=binomial(link="probit"))
+summary(fit)# display results
+
+
+
