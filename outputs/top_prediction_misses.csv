@@ -1,0 +1,51 @@
+"year","player_name","tmID","all_star","miss_type","points_per_game","tall_data_efficiency_score","logistic_probability"
+1963,"Len Chappell","PHI","All-Star","Actual All-Star ranked too low",1,39.2619528852924,0.0024424572918508
+1975,"Byron Beck","DNA","All-Star","Actual All-Star ranked too low",9.625,49.6857323160018,0.00858143685037284
+2008,"Chauncey Billups","DET","All-Star","Actual All-Star ranked too low",12.5,56.6771735813389,0.0155482014352378
+1973,"Swen Nater","VIR","All-Star","Actual All-Star ranked too low",12.5882352941176,50.2234044166982,0.0173274233867648
+1962,"Tom Gola","SFW","All-Star","Actual All-Star ranked too low",12.952380952381,52.7230077109394,0.0182777143174974
+2000,"Theo Ratliff","PHI","All-Star","Actual All-Star ranked too low",12.42,54.8844587038234,0.021504101197866
+1999,"Dale Davis","IND","All-Star","Actual All-Star ranked too low",10.0405405405405,56.2030313170353,0.0216442066895444
+1955,"Bob Harrison","STL","All-Star","Actual All-Star ranked too low",8.56944444444444,50.9204153549454,0.0250226323026189
+1993,"Danny Manning","ATL","All-Star","Actual All-Star ranked too low",15.7307692307692,53.5741455891802,0.0251320415682947
+2007,"Jason Kidd","DAL","All-Star","Actual All-Star ranked too low",9.89655172413793,59.7892405049925,0.0279272717106664
+1950,"Dick McGuire","NYK","All-Star","Actual All-Star ranked too low",8.390625,61.6110779187096,0.028300653928474
+1956,"Richie Regan","ROC","All-Star","Actual All-Star ranked too low",9.80281690140845,52.6080343294177,0.0284600501697914
+1971,"Art Becker","DNR","All-Star","Actual All-Star ranked too low",12.3214285714286,50.4871281409929,0.0287945199537234
+1993,"Shaquille O'Neal","ORL","Not All-Star","Non-All-Star ranked high",29.3456790123457,69.4462155185808,0.970360186732547
+1980,"Paul Westphal","SEA","All-Star","Actual All-Star ranked too low",16.6944444444444,53.5347233024747,0.0298708632486784
+2007,"Rasheed Wallace","DET","All-Star","Actual All-Star ranked too low",12.7142857142857,56.3521012114807,0.0374586435346412
+2002,"Ben Wallace","DET","All-Star","Actual All-Star ranked too low",6.93150684931507,60.6326946925617,0.0400392820131992
+1959,"Chuck Noble","DET","All-Star","Actual All-Star ranked too low",11.2586206896552,53.239937279339,0.0410838866045557
+1955,"Bobby Wanzer","ROC","All-Star","Actual All-Star ranked too low",10.4027777777778,52.7131583567087,0.0415358638918676
+1981,"Bobby Jones","PHI","All-Star","Actual All-Star ranked too low",14.4078947368421,56.34834306478,0.0423674196165811
+1954,"Neil Johnston","PHW","Not All-Star","Non-All-Star ranked high",22.6527777777778,68.8738140398004,0.956422540336121
+1975,"Brian Taylor","NYA","All-Star","Actual All-Star ranked too low",16.7407407407407,53.6819030925298,0.0460736044247201
+1957,"Slater Martin","STL","All-Star","Actual All-Star ranked too low",12.0333333333333,54.5336281212121,0.0478419365703119
+1968,"Larry Brown","OAK","All-Star","Actual All-Star ranked too low",12.012987012987,55.8663541507854,0.0479484928950585
+1981,"Nate Archibald","BOS","All-Star","Actual All-Star ranked too low",12.6176470588235,57.8361552843694,0.0496427047290117
+2010,"LeBron James","MIA","Not All-Star","Non-All-Star ranked high",26.7215189873418,69.808297034191,0.949055862654646
+1989,"A.C. Green","LAL","All-Star","Actual All-Star ranked too low",12.9390243902439,56.6302584163524,0.05159520844747
+1958,"Slater Martin","STL","All-Star","Actual All-Star ranked too low",9.67605633802817,54.7172520098099,0.0519557148979596
+2004,"Ben Wallace","DET","All-Star","Actual All-Star ranked too low",9.74324324324324,59.0696967226258,0.0524183729507785
+1982,"David Thompson","SEA","All-Star","Actual All-Star ranked too low",15.8666666666667,55.2090220343962,0.0545125602623091
+1988,"Earvin Johnson","LAL","Not All-Star","Non-All-Star ranked high",22.4675324675325,70.804762970896,0.945136374074327
+1964,"Johnny Green","NYK","All-Star","Actual All-Star ranked too low",10.9871794871795,51.7821335366068,0.0571535295421586
+1952,"Neil Johnston","PHW","Not All-Star","Non-All-Star ranked high",22.3428571428571,71.2280017676998,0.94231235040593
+1962,"Tom Gola","NYK","All-Star","Actual All-Star ranked too low",12,55.6878087980552,0.0579189448501184
+1954,"Jim Pollard","MNL","All-Star","Actual All-Star ranked too low",10.8095238095238,54.0831029745781,0.0599028582380957
+2002,"Brad Miller","IND","All-Star","Actual All-Star ranked too low",13.0821917808219,59.1877795638521,0.0640142175499193
+1964,"Larry Costello","PHI","All-Star","Actual All-Star ranked too low",13.453125,55.886757461617,0.0648862758283131
+1971,"Nate Thurmond","GSW","Not All-Star","Non-All-Star ranked high",21.448717948718,65.2341565088276,0.934313775831943
+1957,"Dick McGuire","DET","All-Star","Actual All-Star ranked too low",8.05797101449275,59.0140112269279,0.0719576872015462
+1956,"Nat Clifton","NYK","All-Star","Actual All-Star ranked too low",10.7323943661972,54.5240780539442,0.0753320487445273
+1981,"Lonnie Shelton","SEA","All-Star","Actual All-Star ranked too low",14.8641975308642,56.1791980776126,0.0779857626530921
+1971,"Wendell Ladner","MMP","All-Star","Actual All-Star ranked too low",16.4615384615385,50.928408132716,0.0784800734969619
+1972,"Pete Maravich","ATL","Not All-Star","Non-All-Star ranked high",26.1139240506329,66.6832918496428,0.920592747950765
+1977,"Bobby Jones","DEN","All-Star","Actual All-Star ranked too low",14.5066666666667,59.0197667958427,0.082861492848289
+1973,"Pete Maravich","ATL","Not All-Star","Non-All-Star ranked high",27.7236842105263,66.5407326070114,0.915993377165211
+1994,"Tyrone Hill","CLE","All-Star","Actual All-Star ranked too low",13.7571428571429,57.0667684639912,0.0863887923987214
+1952,"Fred Scolari","FTW","All-Star","Actual All-Star ranked too low",13.3870967741935,57.6474687763427,0.0871066416297096
+1990,"Robert Parish","BOS","All-Star","Actual All-Star ranked too low",14.9012345679012,58.28487241315,0.0893494046385093
+1999,"John Stockton","UTA","All-Star","Actual All-Star ranked too low",12.0731707317073,61.8519281218566,0.090089513412206
+1956,"Neil Johnston","PHW","Not All-Star","Non-All-Star ranked high",22.8260869565217,67.242725401554,0.907756976344574

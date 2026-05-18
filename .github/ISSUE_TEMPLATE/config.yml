@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Project README
+    url: https://github.com/TallData/NBA-Stats#readme
+    about: Start here for setup, app usage, and project context.

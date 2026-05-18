@@ -1,0 +1,5 @@
+"Actual","Predicted","Freq"
+"FALSE","FALSE",6228
+"TRUE","FALSE",225
+"FALSE","TRUE",78
+"TRUE","TRUE",243
