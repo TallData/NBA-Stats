@@ -21,8 +21,8 @@ jobs:
       - name: Build reproducible R runtime
         run: docker build --tag nba-legacy-lab:test .
 
-      - name: Inspect modern NBA data schema
-        run: docker run --rm nba-legacy-lab:test Rscript scripts/inspect_modern_data.R
+      - name: Validate modern NBA data
+        run: docker run --rm nba-legacy-lab:test Rscript scripts/validate_modern_data.R
 
       - name: Launch Shiny app
         run: |
@@ -40,6 +40,18 @@ jobs:
 
           docker logs nba-legacy-lab
           exit 1
+
+      - name: Capture latest app
+        run: |
+          mkdir -p outputs
+          npx --yes playwright@1.55.0 install chromium --with-deps
+          npx --yes playwright@1.55.0 screenshot             --browser chromium             --wait-for-timeout 8000             --full-page             http://127.0.0.1:3838             outputs/latest-app.png
+
+      - name: Upload latest app screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: latest-app
+          path: outputs/latest-app.png
 
       - name: Show container logs
         if: always()
