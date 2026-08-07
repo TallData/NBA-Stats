@@ -1,0 +1,47 @@
+name: Shiny smoke test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  launch-app:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build reproducible R runtime
+        run: docker build --tag nba-legacy-lab:test .
+
+      - name: Launch Shiny app
+        run: |
+          docker run --detach             --name nba-legacy-lab             --publish 3838:3838             nba-legacy-lab:test
+
+      - name: Wait for healthy app
+        run: |
+          for attempt in $(seq 1 24); do
+            if curl --fail --silent http://127.0.0.1:3838/ > /dev/null; then
+              echo "Shiny app launched successfully."
+              exit 0
+            fi
+            sleep 5
+          done
+
+          docker logs nba-legacy-lab
+          exit 1
+
+      - name: Show container logs
+        if: always()
+        run: docker logs nba-legacy-lab || true
+
+      - name: Stop container
+        if: always()
+        run: docker rm --force nba-legacy-lab || true
