@@ -79,6 +79,8 @@ The main exploratory script, `scripts/NBA_Pull.R`, loads historical tables, join
 
 ## How To Run Locally
 
+The project runtime is based on R 4.5.2. You can run it with a local R installation or use Docker for the most repeatable setup.
+
 1. Clone the repository.
 
    ```bash
@@ -119,6 +121,28 @@ The main exploratory script, `scripts/NBA_Pull.R`, loads historical tables, join
    ```
 
 Note: some scripts reference older package versions, local paths, or a local MySQL setup. The current project is best treated as an exploratory analysis workspace while the data pipeline is modernized.
+
+### Run With Docker
+
+Build the pinned R 4.5.2 runtime:
+
+```bash
+docker build --tag nba-legacy-lab .
+```
+
+Launch the application:
+
+```bash
+docker run --rm --publish 3838:3838 nba-legacy-lab
+```
+
+Open `http://localhost:3838` in a browser. The container runs the equivalent of:
+
+```r
+shiny::runApp("app", host = "0.0.0.0", port = 3838)
+```
+
+The Docker image includes a health check. GitHub Actions also builds the image, starts the app, and confirms the Shiny endpoint responds before a pull request can be considered validated.
 
 ### Optional Database Setup
 
