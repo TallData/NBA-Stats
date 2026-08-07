@@ -21,6 +21,9 @@ jobs:
       - name: Build reproducible R runtime
         run: docker build --tag nba-legacy-lab:test .
 
+      - name: Inspect modern NBA data schema
+        run: docker run --rm nba-legacy-lab:test Rscript scripts/inspect_modern_data.R
+
       - name: Launch Shiny app
         run: |
           docker run --detach             --name nba-legacy-lab             --publish 3838:3838             nba-legacy-lab:test
