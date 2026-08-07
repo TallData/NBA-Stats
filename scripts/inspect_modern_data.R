@@ -1,0 +1,11 @@
+player_stats <- hoopR::load_nba_player_stats(2025)
+team_stats <- hoopR::load_nba_team_stats(2025)
+
+cat("PLAYER_COLUMNS\n")
+dput(names(player_stats))
+cat("\nPLAYER_SAMPLE\n")
+print(utils::head(player_stats, 12))
+cat("\nTEAM_COLUMNS\n")
+dput(names(team_stats))
+cat("\nTEAM_SAMPLE\n")
+print(utils::head(team_stats, 12))
