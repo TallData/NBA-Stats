@@ -88,6 +88,34 @@ plot_team_production_share <- function(data) {
     theme_minimal(base_size = 13)
 }
 
+get_similar_player_seasons <- function(data, selected_player, limit = 10) {
+  map_data <- data %>%
+    filter(if_all(all_of(model_features), ~ !is.na(.x)))
+
+  req(nrow(map_data) > 2)
+
+  similar_projection <- prcomp(map_data[, model_features], center = TRUE, scale. = TRUE)
+  map_data$pc1 <- similar_projection$x[, 1]
+  map_data$pc2 <- similar_projection$x[, 2]
+  selected_points <- map_data %>% filter(player_name == selected_player)
+
+  req(nrow(selected_points) > 0)
+
+  selected_center <- colMeans(selected_points[, c("pc1", "pc2")])
+
+  map_data %>%
+    mutate(
+      distance_to_selected = sqrt(
+        (pc1 - selected_center[["pc1"]])^2 +
+          (pc2 - selected_center[["pc2"]])^2
+      )
+    ) %>%
+    filter(player_name != selected_player, !is.na(distance_to_selected)) %>%
+    arrange(distance_to_selected) %>%
+    distinct(playerID, year, tmID, .keep_all = TRUE) %>%
+    head(limit)
+}
+
 plot_similar_player_map <- function(data, selected_player) {
   map_data <- data %>%
     filter(if_all(all_of(model_features), ~ !is.na(.x)))
@@ -378,7 +406,10 @@ ui <- fluidPage(
           h3("Team production share"),
           plotOutput("team_production_share_plot", height = 520),
           h3("Similar player map"),
-          plotOutput("similar_player_map_plot", height = 520)
+          plotOutput("similar_player_map_plot", height = 520),
+          h3("Nearest player seasons"),
+          tags$p("Distance is measured in the two-dimensional player profile map. Lower values mean a closer statistical match."),
+          tableOutput("similar_player_seasons")
         ),
         tabPanel(
           "All-Star Predictor",
@@ -548,6 +579,19 @@ server <- function(input, output, session) {
     req(nrow(data) > 2, input$player)
     plot_similar_player_map(data, input$player)
   })
+
+  output$similar_player_seasons <- renderTable({
+    req(input$player)
+
+    get_similar_player_seasons(filtered_data(), input$player) %>%
+      transmute(
+        Player = player_name,
+        Season = year,
+        Team = tmID,
+        `TallData Score` = round(tall_data_efficiency_score, 1),
+        Distance = round(distance_to_selected, 3)
+      )
+  }, striped = TRUE, bordered = TRUE, spacing = "s")
 
   output$model_summary <- renderTable({
     data.frame(
