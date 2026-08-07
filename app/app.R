@@ -233,7 +233,14 @@ player_seasons <- players %>%
     )
   ) %>%
   ungroup() %>%
-  filter(!is.na(year), !is.na(GP), GP > 0)
+  filter(!is.na(year), !is.na(GP), GP > 0) %>%
+  mutate(source_dataset = "historical archive")
+
+modern_data_path <- file.path("..", "data", "processed", "modern_player_seasons.csv")
+if (file.exists(modern_data_path)) {
+  modern_player_seasons <- read.csv(modern_data_path, stringsAsFactors = FALSE)
+  player_seasons <- bind_rows(player_seasons, modern_player_seasons)
+}
 
 available_years <- sort(unique(player_seasons$year))
 
@@ -254,7 +261,10 @@ model_data <- player_seasons %>%
     all_star_flag = all_star == "All-Star",
     data_split_key = paste(playerID, year, tmID, sep = "_")
   ) %>%
-  filter(if_all(all_of(model_features), ~ !is.na(.x)))
+  filter(
+    source_dataset == "historical archive",
+    if_all(all_of(model_features), ~ !is.na(.x))
+  )
 
 set.seed(42)
 train_rows <- sample(seq_len(nrow(model_data)), size = floor(0.7 * nrow(model_data)))
@@ -313,6 +323,11 @@ ui <- fluidPage(
   ),
   tags$p(
     "Core question: can the data identify valuable players before the league officially recognizes them?"
+  ),
+  tags$p(
+    tags$strong("Coverage: "),
+    paste(min(available_years), "to", max(available_years)),
+    "with modern season statistics from hoopR and ESPN."
   ),
   sidebarLayout(
     sidebarPanel(
