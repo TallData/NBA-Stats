@@ -21,6 +21,9 @@ WORKDIR /srv/nba-legacy-lab
 
 COPY . .
 
+RUN Rscript scripts/refresh_modern_data.R && \
+    Rscript scripts/validate_modern_data.R
+
 EXPOSE 3838
 
 HEALTHCHECK --interval=10s --timeout=5s --start-period=20s --retries=6 \
