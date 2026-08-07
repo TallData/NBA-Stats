@@ -3,11 +3,12 @@ FROM rocker/shiny:4.5.2
 RUN install2.r --error --skipinstalled \
     dplyr \
     ggplot2 \
-    hoopR \
     randomForest \
     readr \
     scales \
     tidyr
+
+RUN R -e "install.packages('hoopR', repos = 'https://cloud.r-project.org')"
 
 WORKDIR /srv/nba-legacy-lab
 
