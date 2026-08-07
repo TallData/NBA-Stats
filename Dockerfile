@@ -15,7 +15,7 @@ RUN install2.r --error --skipinstalled \
     scales \
     tidyr
 
-RUN R -e "install.packages('hoopR', repos = 'https://cloud.r-project.org', dependencies = TRUE); stopifnot(packageVersion('hoopR') >= '3.0.0')"
+RUN R -e "install.packages('hoopR', repos = 'https://cloud.r-project.org', dependencies = c('Depends', 'Imports', 'LinkingTo')); stopifnot(packageVersion('hoopR') >= '3.0.0')"
 
 WORKDIR /srv/nba-legacy-lab
 
