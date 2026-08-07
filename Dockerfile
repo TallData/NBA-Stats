@@ -1,5 +1,12 @@
 FROM rocker/shiny:4.5.2
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    cmake \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN install2.r --error --skipinstalled \
     dplyr \
     ggplot2 \
@@ -8,7 +15,7 @@ RUN install2.r --error --skipinstalled \
     scales \
     tidyr
 
-RUN R -e "install.packages('hoopR', repos = 'https://cloud.r-project.org')"
+RUN R -e "install.packages('hoopR', repos = 'https://cloud.r-project.org', dependencies = TRUE); stopifnot(packageVersion('hoopR') >= '3.0.0')"
 
 WORKDIR /srv/nba-legacy-lab
 
