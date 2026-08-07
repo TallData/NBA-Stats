@@ -15,7 +15,7 @@ RUN install2.r --error --skipinstalled \
     scales \
     tidyr
 
-RUN R -e "install.packages('remotes', repos = 'https://cloud.r-project.org'); remotes::install_github('sportsdataverse/hoopR', ref = 'v3.1.0', dependencies = c('Depends', 'Imports', 'LinkingTo'), upgrade = 'never'); stopifnot(packageVersion('hoopR') >= '3.1.0')"
+RUN R -e "install.packages('remotes', repos = 'https://cloud.r-project.org'); remotes::install_github('sportsdataverse/hoopR', ref = '2df91a31c12f39630ae3837f1295e345419f30b7', dependencies = c('Depends', 'Imports', 'LinkingTo'), upgrade = 'never'); stopifnot(packageVersion('hoopR') >= '3.1.0')"
 
 WORKDIR /srv/nba-legacy-lab
 
