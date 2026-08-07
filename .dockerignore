@@ -1,0 +1,7 @@
+.git
+.github
+.RData
+.Rhistory
+.Rproj.user
+.DS_Store
+outputs
