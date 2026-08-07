@@ -63,9 +63,9 @@ team_identity <- team_long %>%
   distinct(season, team_id, team_abbreviation, team_display_name)
 
 team_totals <- team_long %>%
-  filter(category == "totals", stat_label %in% c("PTS", "AST", "TO", "FGA")) %>%
-  select(season, team_id, stat_label, value) %>%
-  distinct() %>%
+  filter(stat_label %in% c("PTS", "AST", "TO", "FGA")) %>%
+  group_by(season, team_id, stat_label) %>%
+  summarise(value = dplyr::first(value[!is.na(value)]), .groups = "drop") %>%
   pivot_wider(names_from = stat_label, values_from = value, names_prefix = "team_")
 
 east_teams <- c("ATL", "BOS", "BKN", "CHA", "CHI", "CLE", "DET", "IND", "MIA", "MIL", "NY", "NYK", "ORL", "PHI", "TOR", "WAS")
