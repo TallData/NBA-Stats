@@ -35,6 +35,8 @@ Core historical files include:
 - `basketball_hof.csv`: Hall of Fame records
 - `basketball_series_post.csv`: playoff series records
 
+See the [data dictionary](DATA_DICTIONARY.md) for source fields, derived metrics, modeling inputs, and known limits.
+
 ## TallData Efficiency Score
 
 The project now includes a branded custom metric: **TallData Efficiency Score**.
@@ -187,6 +189,7 @@ The main app experience is **NBA Legacy Lab** in `app/app.R`. It lets users:
 - Rank and compare seasons using TallData Efficiency Score
 - Compare TallData Efficiency Score against All-Star and Hall of Fame outcomes
 - Explore five shareable visual stories: top efficiency seasons, efficiency by era, player clusters, team production share, and similar player map
+- Review the nearest statistical player-seasons for the selected player
 - Review All-Star predictor results, confusion matrices, and top prediction misses
 - Find high-probability non-selections in the "Who should have been an All-Star?" view
 - Highlight one player across the league view
