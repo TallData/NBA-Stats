@@ -3,8 +3,11 @@ FROM rocker/shiny:4.5.2
 RUN install2.r --error --skipinstalled \
     dplyr \
     ggplot2 \
+    hoopR \
     randomForest \
-    scales
+    readr \
+    scales \
+    tidyr
 
 WORKDIR /srv/nba-legacy-lab
 
